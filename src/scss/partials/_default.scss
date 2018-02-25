@@ -1,0 +1,325 @@
+body , a
+{
+    font-family: "Josefin Sans", sans-serif;
+}
+body {
+    overflow-x: hidden;
+    &.open{
+        overflow: hidden;
+    }
+}
+
+header a {
+    color: $black; 
+}
+@mixin keyframe($animation) {
+    @-webkit-keyframes #{$animation} {
+        @content;
+    }
+    @keyframes #{$animation} {
+        @content;
+    }
+}
+ 
+.preloader-container{
+  position :fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  display:flex;
+  justify-content:center;
+  align-items :center;
+  z-index: 15000;
+  background :$preloader-bg;
+}
+.wrap{
+  position:relative;
+  overflow:hidden;
+  &:after{
+    position :absolute;
+    top :0;
+    content:'';
+    width: 100%;
+    height: 100%;
+    background: $preloader-bg  ;
+    animation: translate 3s steps(12) infinite;
+    @include keyframe(translate) {
+      0%{
+        transform: translateX(0)
+      }
+      60%{
+         transform: translateX(100%)
+      }
+      100%{
+      transform: translateX(0)
+      }
+    }
+  }
+  span{
+    font-size:36px;
+    font-weight:bolder;
+    display:block;
+  }
+}
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.greeting-section{
+    min-height: 550px;
+    // background: url('#{$img}/desk.png') 90% 80% /400px  no-repeat;
+    @media screen and (max-width:767px){
+        background:none;
+    }
+}
+.greeting{
+    display: block;
+    font-size:5rem;
+    line-height: 1;
+    font-weight: 600;
+    color: $dark;
+    margin-top:rem-calc(100px); 
+    @media screen and (max-width:767px){
+        margin-top:rem-calc(50px)
+    }
+}
+.description{
+    font-size: rem-calc(30px);
+    background:rgba($white,.8);
+}
+
+.po-grid{
+    margin:rem-calc(50px)  auto;
+    
+}
+.po-sizer,
+.po-stamp,
+.po-item { 
+    width: calc(50% - 30px); 
+    @media screen and (max-width:767px){
+        width:100%; 
+    }
+    @media screen and (min-width:768px) and (max-width:1023px){
+        width: calc(50% - 25px); 
+    }
+}
+.po-stamp{
+    position: absolute;     
+    right : 0;
+    height: rem-calc(150px);
+}
+.po-item {
+    padding-bottom: rem-calc(30px);
+    &:nth-child(even){
+        animation-delay : .20s;
+    }
+    a{
+        display: block;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        border: 0px solid $white;
+        transition: all 0.3s ease-in-out;
+        img{
+            filter: grayscale(.5);
+            transition: all 0.3s ease-in-out;
+        }
+        &:hover{
+            border: 10px solid $white;
+            img{
+                filter: grayscale(0);
+                transform: scale(1.15);
+            }
+        }
+    }
+    &.animated {
+        -webkit-animation-duration: .7s;
+        animation-duration: .7s;
+    }
+}
+.opacity-0{
+    opacity: 0;
+}
+.no-js .opacity-0{
+    opacity: 1;
+}
+
+.backtop{
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    display: none;
+}
+.footer{
+    margin-top: rem-calc(50px);
+    a{
+        color: $black;
+        font-size: 20px;
+        display: inline;
+        margin: 5px;
+        padding: 5px;
+    }
+    @media screen and (max-width:767px){
+        text-align: center; 
+        .text-right{
+            text-align: center; 
+        }
+    }
+}
+
+a.link ,.footer a{ 
+    position: relative;
+    &:after{
+        content :'';
+        position: absolute;
+        top: calc(50% - 1px);
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: $black;
+        transition: all .3s;
+
+    }
+    &:hover{
+        color: $black;
+        &:after{
+            background: #bf8715;
+            width: 100%;
+        }
+    }
+}
+//------------------------------------------------------
+// contact
+
+.contact-section{
+    position: fixed;
+    top:0;
+    left: 100%;
+    height: 100vh;
+    width: 100%;
+    background: $white;
+    overflow:auto;
+    z-index: 1000;
+    pointer-events: none;
+    transition: transform 0.3s;
+    transition-delay: 0.4s;
+    transition-timing-function: ease-out;
+    &.open{
+        pointer-events: auto;
+        transform: translate3d(-100%,0,0);
+        transition-delay: 0s;
+    }
+    .opacity-0{
+        transition: all .5s;
+    }
+    h4{
+        font-size: rem-calc(28px);
+        color: lighten($black,10%);
+        font-weight: normal;
+        margin-bottom: 25px;
+    }
+    p{
+        font-size: rem-calc(20px);
+    }
+}
+.contact-form{
+    padding: 15px;
+    label{
+        display: block;
+        margin: 5px 0;
+    }
+    input,textarea,.btn-send{
+        width: 100%;
+        border: 1px solid lighten($black,55%);
+        font-size: rem-calc(20px);
+        padding: 5px;
+        &:focus{
+            outline-color: orange;
+        }
+    }
+    input{
+        height: 40px;
+        line-height: rem-calc(40px);
+    }
+    textarea{
+        resize: vertical;
+    }
+    .btn-send{
+         display:block;
+         height: 40px;
+         line-height: rem-calc(30px);
+         margin-top:13px;
+    }
+}
+.contact-nav{
+    padding: rem-calc(15px);
+    a{
+        font-size: rem-calc(18px);
+        color: $black;
+        margin: 5px;
+    }
+}
+ #closeContact{
+     float: right; 
+     color: $black;
+     svg{
+         width: 18px;
+         height: 18px;
+     }
+ }
+ 
+ .contact-section.open .opacity-0{
+     opacity: 1;
+ } 
+
+ .work-link{
+     color: $black;
+     font-size: 24px;
+ }
+ .w-item{
+     position: relative;
+     .blur{
+        position: absolute;
+        filter: blur(8px);
+        opacity: 0;
+        z-index: 0;
+        transition: all .2s;
+     }
+     img:not(.blur){
+        position: relative;
+        z-index: 1;
+        transition: all .3s;
+     }
+     &:hover{
+        .blur{
+            opacity: .7;
+        }
+        img:not(.blur){
+          transform: scale(.95);
+        }
+     }
+    &:nth-child(2n+1){
+        animation-delay : .20s;
+    }
+    &:nth-child(3n+2){
+        animation-delay : .25s;
+    }
+    &:nth-child(4n+1){
+        animation-delay : .30s;
+    }
+     strong{
+         display: block;
+         margin-top: rem-calc(20px);
+         text-align: center;
+         margin-bottom : rem-calc(20px);
+         color: $black;
+         font-weight: normal;
+         font-size: 16px;
+     }
+ }
